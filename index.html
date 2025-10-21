@@ -1,0 +1,158 @@
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCC: Salário Mínimo - O Embate dos Governos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- TELA 1: BOAS-VINDAS -->
+        <div id="boas-vindas" class="tela ativa">
+            <h1>Salário Mínimo: O Embate</h1>
+            <div id="placeholder-dadinho"><img src="imagens/dadinho.png" alt="Personagem Dadinho" style="width: 100%; border-radius: 50%;"></div>
+            <div class="balao-fala">
+                <p>Olá! Eu sou o Dadinho! Bem-vindo ao meu laboratório de análise de dados. Aqui, vamos comparar o poder de compra do salário mínimo ao longo de diferentes governos do Brasil. Escolha dois períodos para iniciar o embate e descobrir como a economia impactou o seu bolso. Preparado?</p>
+            </div>
+            <button onclick="iniciarEmbate()">INICIAR EMBATE</button>
+            <!-- NOVO BOTÃO DA FICHA TÉCNICA -->
+            <button class="btn-secundario" onclick="abrirFicha()">Ficha Técnica</button>
+        </div>
+
+        <!-- TELA 2: SELEÇÃO DE "LUTADORES" -->
+        <div id="selecao" class="tela">
+            <h2>SELECT YOUR FIGHTER</h2>
+            <div class="arena-selecao">
+                <div class="player-box" id="player-a">
+                    <img src="" alt="Player A" class="player-box-img">
+                    <span class="player-box-text">PLAYER A</span>
+                </div>
+                <h3>VS</h3>
+                <div class="player-box" id="player-b">
+                    <img src="" alt="Player B" class="player-box-img">
+                    <span class="player-box-text">PLAYER B</span>
+                </div>
+            </div>
+            <div class="grid-personagens" id="grid-personagens">
+                <!-- O JavaScript irá preencher esta área automaticamente -->
+            </div>
+            <button id="btnLutar" onclick="mostrarResultados()" disabled>LUTAR!</button>
+        </div>
+        
+        <!-- TELA 3: TELA DE EMBATE (LOADING) -->
+        <div id="tela-embate" class="tela">
+            <div class="versus-container">
+                <div class="lutador" id="lutador-a">
+                    <img id="img-lutador-a" src="" alt="Lutador A">
+                </div>
+                <div class="vs-text">
+                    <h2>VS</h2>
+                </div>
+                <div class="lutador" id="lutador-b">
+                    <img id="img-lutador-b" src="" alt="Lutador B">
+                </div>
+            </div>
+            <div class="loading-container">
+                <div class="loading-bar" id="loading-bar-fill"></div>
+            </div>
+        </div>
+        
+        <!-- TELA 4: RESULTADOS -->
+        <div id="resultados" class="tela">
+            <h2 id="titulo-embate"></h2>
+            <div class="arena-resultados">
+                <div class="coluna-resultado" id="coluna-govA">
+                    <h3 id="nome-govA"></h3>
+                    <div class="placeholder-grafico-linha" id="grafico-linha-govA"></div>
+                    <div class="placeholder-grafico-pizza">
+                        <canvas id="grafico-pizza-govA"></canvas>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi"><h4>HORAS P/ CESTA</h4><p id="kpi-horas-govA"></p></div>
+                        <div class="kpi"><h4>AUMENTO SM</h4><p id="kpi-aumento-govA"></p></div>
+                    </div>
+                    <div class="kpi-box" style="margin-top: 10px;">
+                        <div class="kpi-full">
+                            <h4>SM REAL vs NECESSÁRIO</h4>
+                            <p id="kpi-smn-govA"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="coluna-resultado" id="coluna-govB">
+                    <h3 id="nome-govB"></h3>
+                    <div class="placeholder-grafico-linha" id="grafico-linha-govB"></div>
+                    <div class="placeholder-grafico-pizza">
+                        <canvas id="grafico-pizza-govB"></canvas>
+                    </div>
+                    <div class="kpi-box">
+                        <div class="kpi"><h4>HORAS P/ CESTA</h4><p id="kpi-horas-govB"></p></div>
+                        <div class="kpi"><h4>AUMENTO SM</h4><p id="kpi-aumento-govB"></p></div>
+                    </div>
+                    <div class="kpi-box" style="margin-top: 10px;">
+                        <div class="kpi-full">
+                            <h4>SM REAL vs NECESSÁRIO</h4>
+                            <p id="kpi-smn-govB"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="analise-container" class="scroll-animacao">
+                <div id="analise-final">
+                    <h2>A ANÁLISE DO DADINHO</h2>
+                    <div class="layout-analise">
+                        <div class="dadinho-analise-container">
+                            <img src="imagens/dadinho.png" alt="Personagem Dadinho" class="dadinho-analise-img">
+                        </div>
+                        <div class="balao-fala">
+                            <p id="texto-analise">[Análise do Dadinho...]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="vencedor-container" class="scroll-animacao">
+                <h2 id="vencedor-banner-grande">VENCEDOR: NOME</h2>
+                <img id="vencedor-imagem" src="" alt="Foto do Vencedor">
+            </div>
+            <div id="botao-container" class="scroll-animacao">
+                <button onclick="reiniciar()">JOGAR NOVAMENTE</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- NOVA ESTRUTURA DO MODAL (JANELA DE INFORMAÇÕES)     -->
+    <!-- ======================================================= -->
+    <div id="modal-ficha" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="fecharFicha()">&times;</span>
+            
+            <!-- Conteúdo do Datasheet -->
+            <div class="modal-secao">
+                <h2>Datasheet for Datasets (Ficha Técnica dos Dados)</h2>
+                <p><strong>Motivação:</strong> Este conjunto de dados foi criado para centralizar e simplificar o acesso a informações econômicas históricas do Brasil, permitindo a análise e comparação direta entre o Salário Mínimo, o custo da Cesta Básica (São Paulo) e o Salário Mínimo Necessário desde a estabilização do Plano Real.</p>
+                <p><strong>Composição:</strong> O dataset contém registros mensais de Jan/1995 a Jul/2025 com as colunas: `data`, `Salario` (nominal), `valor_nominal` (cesta básica SP), `salario_minimo_necessario` (DIEESE) e `Governo` (rótulo do período).</p>
+                <p><strong>Fontes e Coleta:</strong> Os dados são uma compilação manual de fontes públicas de alta reputação, principalmente o DIEESE e o Portal Contábeis. As fontes podem ser acessadas em: <a href="https://www.dieese.org.br/cestabasica" target="_blank">dieese.org.br/cestabasica</a> e <a href="https://www.contabeis.com.br/tabelas/salario-minimo" target="_blank">contabeis.com.br</a>.</p>
+                <p><strong>Limitações:</strong> 1) A análise inicia em 1995 para garantir a consistência dos dados pós-Plano Real. 2) Os dados de custo de vida (Cesta Básica e SMN) são específicos para a **cidade de São Paulo**, não podendo ser generalizados para o Brasil.</p>
+            </div>
+
+            <!-- Conteúdo do Model Card -->
+            <div class="modal-secao">
+                <h2>Model Card (Manual do Modelo de Análise)</h2>
+                <p><strong>Modelo 1: O "Juiz" (Lógica em Python):</strong> Este sistema calcula 3 KPIs (Aumento % do Salário, Horas de Trabalho p/ Cesta, e Multiplicador do SMN) e aplica um sistema de pontos para determinar um vencedor. A lógica é 100% baseada em regras matemáticas, garantindo precisão.</p>
+                <p><strong>Modelo 2: O "Locutor" (IA Dadinho):</strong> Utiliza os modelos `gemini-pro-latest` (principal) e `deepseek-chat` (contingência) para narrar os resultados já calculados pelo "Juiz". A IA não faz julgamentos, apenas traduz os dados em uma linguagem amigável, seguindo um prompt rigoroso para evitar erros.</p>
+                <p><strong>Limitações e Considerações Éticas:</strong> A análise é uma **simplificação intencional** e não considera fatores externos complexos (crises, pandemias, outras políticas sociais). O resultado reflete apenas o desempenho nas 3 métricas escolhidas. O texto da IA, embora guiado, pode ter variações sutis a cada geração.</p>
+            </div>
+        </div>
+    </div>
+    <!-- FIM DA ESTRUTURA DO MODAL -->
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
