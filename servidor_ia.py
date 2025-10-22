@@ -6,23 +6,23 @@ import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
-# --- NOVO: Importa as bibliotecas para o "estepe" ---
+# --- Importa as bibliotecas para o "estepe" ---
 from openai import OpenAI 
 from google.api_core import exceptions
 
 # --- CONFIGURAÇÃO INICIAL ---
-# Carrega as variáveis de ambiente (como a chave da API) do arquivo .env
+# Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 DB_FILE = 'dados_analiticos.db'
 HORAS_TRABALHO_MES = 220
 
-# Configura a API do Gemini com a sua chave
+# Configura a API do Gemini
 try:
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 except Exception as e:
     print(f"AVISO: Não foi possível configurar a API do Gemini. Verifique a chave. Erro: {e}")
 
-# --- NOVO: Configura o cliente para a API do DeepSeek (nosso estepe) ---
+# --- Configura o cliente para a API do DeepSeek (estepe) ---
 try:
     deepseek_client = OpenAI(
         api_key=os.getenv("DEEPSEEK_API_KEY"),
@@ -32,11 +32,11 @@ except Exception as e:
     print(f"AVISO: Não foi possível configurar a API do DeepSeek. Verifique a chave. Erro: {e}")
 
 
-# Cria a aplicação Flask, que será nosso servidor
+# Cria a aplicação Flask, que será o servidor
 app = Flask(__name__, static_folder='.', static_url_path='')
 
 # --- FUNÇÃO 1: O CALCULISTA ---
-# (Esta função continua exatamente como você fez, está perfeita)
+
 def calcular_metricas(periodo_gov):
     conn = sqlite3.connect(DB_FILE)
     df = pd.read_sql_query(f"SELECT * FROM dados_consolidados WHERE Governo = '{periodo_gov}'", conn)
@@ -83,7 +83,7 @@ def calcular_metricas(periodo_gov):
         'kpi_aumento_percentual_sm': f"{aumento_percentual_sm:.2f}%"
     }
 
-# --- NOVA FUNÇÃO: O "ESTEPE" ---
+# ---  FUNÇÃO: O "ESTEPE" ---
 # Função dedicada a chamar a API do DeepSeek se o Gemini falhar
 def chamar_deepseek(prompt):
     print("AVISO: Limite do Gemini atingido. Acionando o estepe (DeepSeek)...")
@@ -91,15 +91,15 @@ def chamar_deepseek(prompt):
         response = deepseek_client.chat.completions.create(
             model="deepseek-chat",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=500 # Define um limite de tokens para a resposta
+            max_tokens=500 
         )
         return response.choices[0].message.content
     except Exception as e:
         print(f"ERRO: A chamada para o DeepSeek também falhou. Erro: {e}")
-        return None # Retorna None se o DeepSeek também falhar
+        return None 
 
 # --- FUNÇÃO 2: O CÉREBRO DA APLICAÇÃO ---
-# (A lógica do juiz continua a mesma, mas a chamada da IA foi atualizada)
+
 @app.route('/api/comparar', methods=['POST'])
 def comparar_governos():
     # Pega os nomes dos governos que o usuário escolheu no site
@@ -114,7 +114,7 @@ def comparar_governos():
     if not dados_gov1 or not dados_gov2:
         return jsonify({"erro": "Dados para um dos governos não encontrados"}), 404
 
-    # A sua lógica de "juiz" continua aqui, perfeita como estava
+
     aumento_gov1 = float(dados_gov1['kpi_aumento_percentual_sm'][:-1])
     aumento_gov2 = float(dados_gov2['kpi_aumento_percentual_sm'][:-1])
     horas_gov1 = dados_gov1['kpi_horas_trabalho']
@@ -135,7 +135,7 @@ def comparar_governos():
     elif pontos[dados_gov2['nome']] > pontos[dados_gov1['nome']]:
         vencedor_geral_label = f"VENCEDOR: {dados_gov2['nome'].upper()}"
 
-    # O seu prompt refinado continua aqui, perfeito como estava
+
     prompt = f"""
     Aja como 'Dadinho', um carismático locutor de luta e analista de dados. Sua tarefa é narrar um "embate econômico" em rounds, com **parágrafos muito curtos e diretos (máximo 2 frases por parágrafo)**.
 
@@ -165,7 +165,7 @@ def comparar_governos():
     5.  **Veredito Final:** Em um parágrafo final, apresente o placar ({placar_final}) e o vencedor ({vencedor_geral_label}). Se o placar for 2x1, mencione que a "luta foi acirrada". Se um dos governos teve mandato curto (Dilma 2, Temer, Lula 3), comente isso brevemente.
     """ 
     
-    # --- NOVO BLOCO DE LÓGICA: Tenta o Gemini, se falhar, tenta o DeepSeek ---
+    # --- BLOCO DE LÓGICA: Tenta o Gemini, se falhar, tenta o DeepSeek ---
     texto_analise_ia = None
     try:
         # Tenta chamar a API principal (Gemini)
@@ -190,7 +190,7 @@ def comparar_governos():
                            f"No round de 'Horas de Trabalho', o ponto foi para {vencedor_horas.upper()}.\n"
                            f"No round de 'Distância do Salário Ideal', o melhor foi {vencedor_smn.upper()}.\n\n"
                            f"{placar_final}")
-    # --- FIM DO NOVO BLOCO DE LÓGICA ---
+    # --- FIM DO BLOCO DE LÓGICA ---
 
     # Empacota o resultado final para o site
     resultado_final = { 
@@ -201,7 +201,7 @@ def comparar_governos():
     }
     return jsonify(resultado_final)
 
-# Rota para servir o nosso site (o arquivo index.html)
+# Rota para servir o nosso site 
 @app.route('/')
 def index():
     return send_from_directory('.', 'index.html')
