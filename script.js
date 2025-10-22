@@ -101,7 +101,7 @@ function selecionarGov(elemento) {
     btnLutar.disabled = !(playerA && playerB);
 }
 
-// --- NOVA FUNÇÃO AUXILIAR para atualizar os Player Boxes ---
+// --- FUNÇÃO AUXILIAR para atualizar os Player Boxes ---
 function atualizarPlayerBox(player, gov, tema) {
     const playerBox = document.getElementById(`player-${player}`);
     const imgElement = playerBox.querySelector('.player-box-img');
@@ -194,14 +194,13 @@ async function mostrarResultados() {
         document.getElementById('coluna-govA').classList.add('animar-entrada-esquerda');
         document.getElementById('coluna-govB').classList.add('animar-entrada-direita');
 
-        // <<< MUDANÇA AQUI 1 >>>
-        // Altera o alinhamento do body para 'flex-start' para alinhar a tela de resultados no topo.
+       
         document.body.style.alignItems = 'flex-start';
 
         telaEmbate.classList.remove('ativa');
         telaResultados.classList.add('ativa');
 
-        // O código de scroll anterior foi removido pois não é mais necessário.
+     
 
     } catch (error) {
         alert(error.message);
@@ -247,8 +246,7 @@ function desenharGraficoPizza(canvasId, dados, sufixo) {
 }
 
 function reiniciar() {
-    // <<< MUDANÇA AQUI 2 >>>
-    // Restaura o alinhamento do body para 'center' para as telas iniciais.
+    
     document.body.style.alignItems = 'center';
 
     playerA = null;
