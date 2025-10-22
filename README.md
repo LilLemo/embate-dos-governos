@@ -1,4 +1,4 @@
-Embate dos Governos: Salário Mínimo vs. Poder de Compra 📊
+Embate dos Governos: Salário Mínimo vs. Poder de Compra 
 
 Uma aplicação web gamificada que transforma a análise do poder de compra no Brasil em um 'embate' entre governos. Projeto de TCC com Python (Flask), JavaScript e IA Generativa.
 
