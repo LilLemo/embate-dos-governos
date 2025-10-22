@@ -2,6 +2,8 @@ Embate dos Governos: Salário Mínimo vs. Poder de Compra
 
 Uma aplicação web gamificada que transforma a análise do poder de compra no Brasil em um 'embate' entre governos. Projeto de TCC com Python (Flask), JavaScript e IA Generativa.
 
+
+
 Sobre o Projeto
 
 Este projeto, desenvolvido como Trabalho de Conclusão de Curso (TCC), visa democratizar o acesso e a análise de dados econômicos históricos do Brasil, focando na relação entre o Salário Mínimo, o custo da Cesta Básica (São Paulo) e o Salário Mínimo Necessário (calculado pelo DIEESE) desde a estabilização do Plano Real (1995).
@@ -30,6 +32,9 @@ Análise por IA (Dadinho): Narração dos resultados em formato de "rounds", ger
 
 Transparência: Seção "Ficha Técnica" com informações baseadas nos conceitos de Datasheets for Datasets e Model Cards.
 
+
+
+
 Tecnologias Utilizadas
 
 Back-End: Python 3 + Flask (para servir a API e processar os dados).
@@ -44,15 +49,17 @@ Bibliotecas JavaScript: Chart.js (geração de gráficos).
 
 APIs de IA: Google Gemini API (principal), DeepSeek API (contingência).
 
+
+
 Como Executar Localmente
 
-Clone o repositório:
+1 - Clone o repositório:
 
 git clone [https://github.com/SEU_USUARIO/embate-dos-governos.git](https://github.com/SEU_USUARIO/embate-dos-governos.git)
 cd embate-dos-governos
 
 
-Crie e ative um ambiente virtual (recomendado):
+2 - Crie e ative um ambiente virtual (recomendado):
 
 python -m venv venv
 # No Windows:
@@ -61,12 +68,12 @@ python -m venv venv
 source venv/bin/activate
 
 
-Instale as dependências:
+3 - Instale as dependências:
 
 pip install Flask pandas google-generativeai openai python-dotenv
 
 
-Configure as Chaves de API:
+4 - Configure as Chaves de API:
 
 Crie um arquivo chamado .env na raiz do projeto.
 
@@ -76,24 +83,26 @@ GEMINI_API_KEY="SUA_CHAVE_GEMINI"
 DEEPSEEK_API_KEY="SUA_CHAVE_DEEPSEEK"
 
 
-Obtenha o Banco de Dados:
+5 - Obtenha o Banco de Dados:
 
 Certifique-se de que o arquivo dados_analiticos.db está na raiz do projeto. (Nota: Este arquivo não está incluído no repositório por padrão. Eu ainda to vendo como subir ele, se acalme).
 
-Execute o servidor:
+6 - Execute o servidor:
 
 python servidor_ia.py
 
 
-Acesse no navegador: Abra seu navegador e vá para http://localhost:5000.
+7 - Acesse no navegador: Abra seu navegador e vá para http://localhost:5000. (pelo menos por enquanto kkk)
 
-Fontes dos Dados
+
+
+#Fontes dos Dados#
 
 Os dados utilizados neste projeto foram compilados a partir das seguintes fontes públicas:
 
-DIEESE (Cesta Básica e Salário Mínimo Necessário): https://www.dieese.org.br/analisecestabasica/salarioMinimo.html
+ - DIEESE (Cesta Básica e Salário Mínimo Necessário):     https://www.dieese.org.br/analisecestabasica/salarioMinimo.html
 
-Portal Contábeis (Histórico do Salário Mínimo): https://www.contabeis.com.br/tabelas/salario-minimo
+ - Portal Contábeis (Histórico do Salário Mínimo): https://www.contabeis.com.br/tabelas/salario-minimo
 
 Consulte a seção "Ficha Técnica" dentro da aplicação para mais detalhes sobre os dados (Datasheet & Model Card).
 
