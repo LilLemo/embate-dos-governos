@@ -1,10 +1,10 @@
-Embate dos Governos: Salário Mínimo vs. Poder de Compra 
+# Embate dos Governos: Salário Mínimo vs. Poder de Compra 
 
 Uma aplicação web gamificada que transforma a análise do poder de compra no Brasil em um 'embate' entre governos. Projeto de TCC com Python (Flask), JavaScript e IA Generativa.
 
 
 
-Sobre o Projeto
+# Sobre o Projeto
 
 Este projeto, desenvolvido como Trabalho de Conclusão de Curso (TCC), visa democratizar o acesso e a análise de dados econômicos históricos do Brasil, focando na relação entre o Salário Mínimo, o custo da Cesta Básica (São Paulo) e o Salário Mínimo Necessário (calculado pelo DIEESE) desde a estabilização do Plano Real (1995).
 
@@ -14,7 +14,7 @@ A aplicação utiliza um sistema de pontuação baseado em 3 métricas principai
 
 
 
-Funcionalidades Principais
+# Funcionalidades Principais
 
 Seleção de "Lutadores": Interface inspirada em jogos para escolher dois períodos de governo (1995-2025).
 
@@ -35,7 +35,7 @@ Transparência: Seção "Ficha Técnica" com informações baseadas nos conceito
 
 
 
-Tecnologias Utilizadas
+# Tecnologias Utilizadas
 
 Back-End: Python 3 + Flask (para servir a API e processar os dados).
 
@@ -51,7 +51,7 @@ APIs de IA: Google Gemini API (principal), DeepSeek API (contingência).
 
 
 
-Como Executar Localmente
+## Como Executar Localmente
 
 1 - Clone o repositório:
 
@@ -62,9 +62,9 @@ cd embate-dos-governos
 2 - Crie e ative um ambiente virtual (recomendado):
 
 python -m venv venv
-# No Windows:
+ No Windows:
 .\venv\Scripts\activate
-# No Linux/Mac:
+ No Linux/Mac:
 source venv/bin/activate
 
 
