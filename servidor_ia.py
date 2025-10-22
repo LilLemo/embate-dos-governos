@@ -1,11 +1,11 @@
 # Importa todas as bibliotecas necessárias
-import sqlite3
 import pandas as pd
 import json
 import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
+from sqlalchemy import create_engine  # <-- MUDANÇA 1: Trocamos sqlite3 por sqlalchemy
 # --- Importa as bibliotecas para o "estepe" ---
 from openai import OpenAI 
 from google.api_core import exceptions
@@ -13,7 +13,15 @@ from google.api_core import exceptions
 # --- CONFIGURAÇÃO INICIAL ---
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
-DB_FILE = 'dados_analiticos.db'
+
+# --- MUDANÇA 2: Lógica do Banco de Dados ---
+# Pega a URL do banco do Render (que configuramos no Passo 2)
+# Se não achar (rodando local), ele usa o arquivo sqlite
+DB_URL = os.environ.get('DATABASE_URL', 'sqlite:///dados_analiticos.db')
+# Cria o "motor" do banco de dados com base na URL
+engine = create_engine(DB_URL)
+# --- Fim da MUDANÇA 2 ---
+
 HORAS_TRABALHO_MES = 220
 
 # Configura a API do Gemini
@@ -38,9 +46,12 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 # --- FUNÇÃO 1: O CALCULISTA ---
 
 def calcular_metricas(periodo_gov):
-    conn = sqlite3.connect(DB_FILE)
-    df = pd.read_sql_query(f"SELECT * FROM dados_consolidados WHERE Governo = '{periodo_gov}'", conn)
-    conn.close()
+    # --- MUDANÇA 3: Conexão com o banco ---
+    # conn = sqlite3.connect(DB_FILE) # Linha antiga removida
+    # Usamos o "engine" do SQLAlchemy. O Pandas faz o resto.
+    df = pd.read_sql_query(f"SELECT * FROM dados_consolidados WHERE Governo = '{periodo_gov}'", engine)
+    # conn.close() # Linha antiga removida
+    # --- Fim da MUDANÇA 3 ---
 
     if df.empty:
         return None
@@ -186,10 +197,10 @@ def comparar_governos():
     if texto_analise_ia is None:
         print("AVISO: Ambas as APIs falharam. Gerando texto padrão.")
         texto_analise_ia = (f"Olá, sou o Dadinho! Parece que meus circuitos de IA estão sobrecarregados hoje.\n\n"
-                           f"Mas a análise numérica não para! O vencedor do round de 'Aumento Salarial' foi {vencedor_aumento_sm.upper()}.\n"
-                           f"No round de 'Horas de Trabalho', o ponto foi para {vencedor_horas.upper()}.\n"
-                           f"No round de 'Distância do Salário Ideal', o melhor foi {vencedor_smn.upper()}.\n\n"
-                           f"{placar_final}")
+                            f"Mas a análise numérica não para! O vencedor do round de 'Aumento Salarial' foi {vencedor_aumento_sm.upper()}.\n"
+                            f"No round de 'Horas de Trabalho', o ponto foi para {vencedor_horas.upper()}.\n"
+                            f"No round de 'Distância do Salário Ideal', o melhor foi {vencedor_smn.upper()}.\n\n"
+                            f"{placar_final}")
     # --- FIM DO BLOCO DE LÓGICA ---
 
     # Empacota o resultado final para o site
@@ -208,4 +219,8 @@ def index():
 
 # Inicia o servidor quando o script é executado
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # --- MUDANÇA 4: Configuração do 'host' e 'port' ---
+  
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
+    # --- Fim da MUDANÇA 4 ---
