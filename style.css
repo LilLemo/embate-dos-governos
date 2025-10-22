@@ -97,16 +97,16 @@ button:disabled {
     border: 3px solid #e94560;
     background-color: #0f3460;
     display: flex;
-    flex-direction: column; /* Coloca imagem em cima do texto */
-    justify-content: flex-end; /* Alinha o texto na base */
+    flex-direction: column; 
+    justify-content: flex-end; 
     align-items: center;
     font-family: 'Press Start 2P', cursive;
     font-size: 14px;
-    padding-bottom: 20px; /* Espaço para o texto */
+    padding-bottom: 20px; 
     position: relative;
     overflow: hidden;
     color: white;
-    box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
+    box-sizing: border-box; 
 }
 .player-box-img {
     position: absolute;
@@ -115,14 +115,14 @@ button:disabled {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0; /* Começa invisível */
+    opacity: 0; 
     transition: opacity 0.3s ease-in-out;
 }
 .player-box-img.visivel {
     opacity: 0.9;
 }
 .player-box-text {
-    position: relative; /* Garante que o texto fique por cima da imagem */
+    position: relative; 
     z-index: 2;
     text-shadow: 2px 2px 4px #000;
 }
@@ -131,9 +131,9 @@ button:disabled {
 .grid-personagens {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 10px; /* Seu ajuste de espaçamento */
+    gap: 10px; 
     margin-top: 20px;
-    padding: 10px; /* Seu ajuste de padding */
+    padding: 10px; 
     background-color: rgba(0,0,0,0.3);
     border-radius: 5px;
     justify-content: center;
@@ -217,13 +217,13 @@ button:disabled {
 #botao-container { margin-top: 60px; padding-top: 40px; border-top: 3px solid #0f3460; }
 
 /* ======================================================= */
-/* ESTILOS DO BOTÃO SECUNDÁRIO E DO MODAL (NOVOS)        */
+/* ESTILOS DO BOTÃO SECUNDÁRIO E DO MODAL                  */
 /* ======================================================= */
 
-/* Estilo do novo botão amarelo/alaranjado */
+
 .btn-secundario {
-    background-color: #f1c40f; /* Amarelo */
-    color: #16213e; /* Cor do fundo escuro */
+    background-color: #f1c40f; 
+    color: #16213e; 
     border-color: #16213e;
     margin-top: 15px;
 }
@@ -236,23 +236,23 @@ button:disabled {
 
 /* O fundo escuro e semi-transparente do modal */
 .modal {
-    display: none; /* Começa escondido */
-    position: fixed; /* Fica fixo na tela */
-    z-index: 100; /* Garante que fique na frente de tudo */
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Permite rolar se o conteúdo for grande */
-    background-color: rgba(0,0,0,0.8); /* Fundo preto com 80% de opacidade */
-    -webkit-backdrop-filter: blur(5px); /* Efeito de desfoque para navegadores Webkit (Chrome, Safari) */
-    backdrop-filter: blur(5px); /* Efeito de desfoque padrão */
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.8); 
+    -webkit-backdrop-filter: blur(5px); 
+    backdrop-filter: blur(5px); 
 }
 
 /* A caixa de conteúdo do modal */
 .modal-content {
     background-color: #16213e;
-    margin: 8% auto; /* Centraliza verticalmente e horizontalmente */
+    margin: 8% auto; 
     padding: 30px;
     border: 3px solid #e94560;
     border-radius: 10px;
@@ -264,7 +264,7 @@ button:disabled {
     box-shadow: 0 0 30px rgba(227, 20, 102, 0.7);
 }
 
-/* O botão de fechar (o "X") */
+/* O botão de fechar */
 .close-button {
     color: #aaa;
     position: absolute;
