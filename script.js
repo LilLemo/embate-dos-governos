@@ -29,7 +29,7 @@ const imagensPresidentes = {
     lula3: 'imagens/lula3.png'
 };
 
-// MAPA de TEXTOS E TEMAS
+// MAPA DE TEXTOS E TEMAS
 const dadosPresidentes = {
     fhc1: { texto: "FHC 1 (95-98)", tema: "fhc" },
     fhc2: { texto: "FHC 2 (99-02)", tema: "fhc" },
@@ -191,18 +191,18 @@ async function mostrarResultados() {
         desenharGraficoPizza('grafico-pizza-govA', dadosGovA.dados_pizza, 'A');
         document.getElementById('kpi-horas-govA').innerText = `${dadosGovA.kpi_horas_trabalho} horas`;
         document.getElementById('kpi-aumento-govA').innerText = dadosGovA.kpi_aumento_percentual_sm;
-D       document.getElementById('kpi-smn-govA').innerHTML = `${dadosGovA.kpi_media_sm} vs ${dadosGovA.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovA.kpi_smn_multiplicador} menor)</span>`;
+        document.getElementById('kpi-smn-govA').innerHTML = `${dadosGovA.kpi_media_sm} vs ${dadosGovA.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovA.kpi_smn_multiplicador} menor)</span>`;
 
         document.getElementById('nome-govB').innerText = dadosGovB.nome.toUpperCase();
         desenharGraficoLinha('grafico-linha-govB', dadosGovB.dados_grafico_linha, 'B');
         document.getElementById('grafico-pizza-govB').parentElement.classList.add('animar-poing');
         desenharGraficoPizza('grafico-pizza-govB', dadosGovB.dados_pizza, 'B');
-        document.getElementById('kpi-horas-govB').innerText = `${dadosGovB.kpi_horas_trabalho} horas`;
+section    document.getElementById('kpi-horas-govB').innerText = `${dadosGovB.kpi_horas_trabalho} horas`;
         document.getElementById('kpi-aumento-govB').innerText = dadosGovB.kpi_aumento_percentual_sm;
         document.getElementById('kpi-smn-govB').innerHTML = `${dadosGovB.kpi_media_sm} vs ${dadosGovB.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovB.kpi_smn_multiplicador} menor)</span>`;
 
-        // Lógica para encontrar a imagem correta do vencedor
-        let nomeVencedorKey = "lula1"; // Imagem padrão em caso de empate ou erro
+        // --- MUDANÇA 3: Lógica corrigida para achar a imagem do vencedor ---
+        let nomeVencedorKey = "lula1"; // Imagem padrão em caso de empate
         const vencedorNomeUpper = dados.vencedor.split(':').pop().trim(); // Pega "LULA 3 (23-25)"
         
         if (dados.vencedor.toUpperCase() !== "EMPATE") {
@@ -218,17 +218,15 @@ D       document.getElementById('kpi-smn-govA').innerHTML = `${dadosGovA.kpi_
         document.getElementById('texto-analise').innerText = dados.analise_dadinho;
         document.getElementById('vencedor-banner-grande').innerText = dados.vencedor;
         document.getElementById('vencedor-imagem').src = imagensPresidentes[nomeVencedorKey];
+        // --- Fim da MUDANÇA 3 ---
         
         document.getElementById('coluna-govA').classList.add('animar-entrada-esquerda');
         document.getElementById('coluna-govB').classList.add('animar-entrada-direita');
-
-       
+        
         document.body.style.alignItems = 'flex-start';
 
         telaEmbate.classList.remove('ativa');
         telaResultados.classList.add('ativa');
-
-     
 
     } catch (error) {
         alert("Ops! Ocorreu um erro ao buscar os dados:\n\n" + error.message + "\n\nPor favor, tente novamente. Se o erro persistir, o servidor pode estar inicializando.");
@@ -259,7 +257,7 @@ function desenharGraficoPizza(canvasId, dados, sufixo) {
     if (graficos[`pizza-${sufixo}`]) { graficos[`pizza-${sufixo}`].destroy(); }
     const ctx = document.getElementById(canvasId).getContext('2d');
     graficos[`pizza-${sufixo}`] = new Chart(ctx, {
-_     type: 'pie',
+        type: 'pie',
         data: { labels: dados.labels, datasets: [{
             data: dados.valores,
             backgroundColor: ['#e94560', '#16213e'],
@@ -280,21 +278,21 @@ function reiniciar() {
     playerA = null;
     playerB = null;
     temaPlayerA = null;
-    temaPlayerB = null;
+...     temaPlayerB = null;
 
     document.querySelectorAll('.retrato-presidente.selecionado').forEach(el => el.classList.remove('selecionado'));
     
     atualizarPlayerBox('a', null, null);
     atualizarPlayerBox('b', null, null);
 
-  t btnLutar.disabled = true;
+    btnLutar.disabled = true;
 
     const loadingBar = document.getElementById('loading-bar-fill');
     loadingBar.style.transition = 'none';
     loadingBar.style.width = '0%';
 
-    document.getElementById('lutador-a').removeAttribute('data-theme');
-section     document.getElementById('lutador-b').removeAttribute('data-theme');
+  t document.getElementById('lutador-a').removeAttribute('data-theme');
+    document.getElementById('lutador-b').removeAttribute('data-theme');
     document.getElementById('coluna-govA').removeAttribute('data-theme');
     document.getElementById('coluna-govB').removeAttribute('data-theme');
     
@@ -302,7 +300,7 @@ section     document.getElementById('lutador-b').removeAttribute('data-theme')
     document.getElementById('coluna-govB').classList.remove('animar-entrada-direita');
 
     document.getElementById('grafico-pizza-govA').parentElement.classList.remove('animar-poing');
-  storage   document.getElementById('grafico-pizza-govB').parentElement.classList.remove('animar-poing');
+  ... document.getElementById('grafico-pizza-govB').parentElement.classList.remove('animar-poing');
     
     const elementosParaAnimar = document.querySelectorAll('.scroll-animacao');
     elementosParaAnimar.forEach(el => el.classList.remove('visivel'));
@@ -316,7 +314,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visivel');
-        }
+...     }
     });
 }, {
     threshold: 0.2
@@ -329,7 +327,7 @@ elementosParaAnimar.forEach(el => observer.observe(el));
 const modal = document.getElementById('modal-ficha');
 
 function abrirFicha() {
-A     if (modal) modal.style.display = 'block';
+    if (modal) modal.style.display = 'block';
 }
 
 function fecharFicha() {
