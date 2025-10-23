@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine 
 from flask_cors import CORS
 # --- Importa as bibliotecas para o "estepe" ---
-from openai import OpenAI 
 from google.api_core import exceptions
 
 # --- CONFIGURAÇÃO INICIAL ---
@@ -26,15 +25,6 @@ try:
     genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 except Exception as e:
     print(f"AVISO: Não foi possível configurar a API do Gemini. Verifique a chave. Erro: {e}")
-
-# --- Configura o cliente para a API do DeepSeek (estepe) ---
-try:
-    deepseek_client = OpenAI(
-        api_key=os.getenv("DEEPSEEK_API_KEY"),
-        base_url="https://api.deepseek.com/v1"
-    )
-except Exception as e:
-    print(f"AVISO: Não foi possível configurar a API do DeepSeek. Verifique a chave. Erro: {e}")
 
 
 # Cria a aplicação Flask, que será o servidor
@@ -218,6 +208,7 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
 
 
 
