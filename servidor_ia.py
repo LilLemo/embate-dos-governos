@@ -5,23 +5,19 @@ import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
-from sqlalchemy import create_engine  # <-- MUDANÇA 1: Trocamos sqlite3 por sqlalchemy
+from sqlalchemy import create_engine 
+from flask_cors import CORS
 # --- Importa as bibliotecas para o "estepe" ---
 from openai import OpenAI 
 from google.api_core import exceptions
 
 # --- CONFIGURAÇÃO INICIAL ---
-# Carrega as variáveis de ambiente do arquivo .env
+
 load_dotenv()
 
-# --- MUDANÇA 2: Lógica do Banco de Dados ---
-# Pega a URL do banco do Render (que configuramos no Passo 2)
-# Se não achar (rodando local), ele usa o arquivo sqlite
 DB_URL = os.environ.get('DATABASE_URL', 'sqlite:///dados_analiticos.db')
 # Cria o "motor" do banco de dados com base na URL
 engine = create_engine(DB_URL)
-# --- Fim da MUDANÇA 2 ---
-
 HORAS_TRABALHO_MES = 220
 
 # Configura a API do Gemini
@@ -42,7 +38,7 @@ except Exception as e:
 
 # Cria a aplicação Flask, que será o servidor
 app = Flask(__name__, static_folder='.', static_url_path='')
-
+CORS(app)
 # --- FUNÇÃO 1: O CALCULISTA ---
 
 def calcular_metricas(periodo_gov):
@@ -224,3 +220,4 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
