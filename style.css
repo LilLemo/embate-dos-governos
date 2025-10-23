@@ -348,9 +348,10 @@ button:disabled {
 
 #resultados .layout-analise .balao-fala {
     max-width: none; 
-    width: 1;       
+    flex: 1;       
     background-color: transparent;
     border: none;
     padding: 0;
 }
+
 
