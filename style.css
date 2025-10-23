@@ -190,7 +190,7 @@ button:disabled {
 :root { --cor-fhc: #eff31a; --cor-lula: #f61e06; --cor-dilma: #c21ca4; --cor-temer: #176ddf; --cor-bolsonaro: #39dd3f; }
 /* Regra geral de Hover: aplica a animação WIGGLE */
 .retrato-presidente:hover {
-    animation: wiggle 0.8s ease-in-out infinite;
+    animation: wiggle 1s ease-in-out infinite;
     transform: scale(1.1); /* Define o estado base da escala */
     z-index: 10; /* Garante que o card fique por cima dos outros */
 }
@@ -408,5 +408,6 @@ button:disabled {
 #analise-final h2 {
     margin-top: 60px; 
 }
+
 
 
