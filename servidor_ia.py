@@ -42,12 +42,9 @@ CORS(app)
 # --- FUNÇÃO 1: O CALCULISTA ---
 
 def calcular_metricas(periodo_gov):
-    # --- MUDANÇA 3: Conexão com o banco ---
-    # conn = sqlite3.connect(DB_FILE) # Linha antiga removida
-    # Usamos o "engine" do SQLAlchemy. O Pandas faz o resto.
-    df = pd.read_sql_query(f"SELECT * FROM dados_consolidados WHERE Governo = '{periodo_gov}'", engine)
-    # conn.close() # Linha antiga removida
-    # --- Fim da MUDANÇA 3 ---
+    sql_query = 'SELECT * FROM "dados_consolidados" WHERE "Governo" = %(gov_name)s'
+    params = {'gov_name': periodo_gov}
+    df = pd.read_sql_query(sql_query, engine, params=params)
 
     if df.empty:
         return None
@@ -220,4 +217,5 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
 
