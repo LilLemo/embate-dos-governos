@@ -311,38 +311,48 @@ button:disabled {
     text-decoration: underline;
 }
 
-.layout-analise {
+#resultados .layout-analise {
     display: flex;          
     align-items: flex-start;  
     gap: 20px;              
-    margin-top: 20px;       
+    margin-top: 20px;
+   
+    padding: 25px;
+    background-color: #0f3460;
+    border: 2px solid #0f3460;
+    border-radius: 8px;
 }
 
 
-.dadinho-analise-container {
+#resultados .dadinho-analise-container {
     flex-shrink: 0; 
 }
 
 
-.dadinho-analise-img {
+#resultados .dadinho-analise-img {
     width: 120px;
     height: 120px;
     border-radius: 50%; 
     border: 4px solid #e94560;
+    object-fit: contain; 
 }
 
 
-#texto-analise {
+#resultados #texto-analise {
     text-align: left; 
     margin: 0;        
     font-family: Arial, sans-serif; 
     line-height: 1.6;
     font-size: 16px;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 /* O balão de fala na tela de resultados */
-.layout-analise .balao-fala {
+#resultados .layout-analise .balao-fala {
     max-width: none; 
-    width: 100%;     
+    width: 100%;       
+
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }
