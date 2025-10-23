@@ -408,6 +408,16 @@ button:disabled {
 #analise-final h2 {
     margin-top: 60px; 
 }
+.titulo-grafico-pizza {
+    font-family: Arial, sans-serif; /* Usar uma fonte mais legível que a 'Press Start' */
+    font-size: 16px;
+    font-style: italic;
+    color: #f1c40f; /* Uma cor de destaque, como a do botão de ficha técnica */
+    margin-top: 25px; /* Espaço para separar do gráfico de linha */
+    margin-bottom: 10px; /* Espaço antes de mostrar a pizza */
+    text-align: center;
+    line-height: 1.4;
+}
 
 
 
