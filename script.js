@@ -195,16 +195,9 @@ async function mostrarResultados() {
         document.getElementById('kpi-horas-govB').innerText = `${dadosGovB.kpi_horas_trabalho} horas`;
         document.getElementById('kpi-aumento-govB').innerText = dadosGovB.kpi_aumento_percentual_sm;
         document.getElementById('kpi-smn-govB').innerHTML = `${dadosGovB.kpi_media_sm} vs ${dadosGovB.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovB.kpi_smn_multiplicador} menor)</span>`;
-        let nomeVencedorKey = "lula1"; // Imagem padrão em caso de empate
-        const vencedorNomeUpper = dados.vencedor.split(':').pop().trim(); 
-        if (dados.vencedor.toUpperCase() !== "EMPATE") {
-            for (const key in dadosPresidentes) {
-                if (dadosPresidentes[key].texto.toUpperCase() === vencedorNomeUpper) {
-                    nomeVencedorKey = key; // Achou! 'lula3'
-                    break;
-                }
-            }
-         }
+        const vencedorKeyUpper = dados.vencedor.split(':').pop().trim();
+        const nomeVencedorKey = vencedorKeyUpper.toLowerCase();
+        
         document.getElementById('texto-analise').innerText = dados.analise_dadinho;
         document.getElementById('vencedor-banner-grande').innerText = dados.vencedor;
         document.getElementById('vencedor-imagem').src = imagensPresidentes[nomeVencedorKey];
@@ -314,4 +307,5 @@ window.onclick = function(event) {
         fecharFicha();
     }
 }
+
 
