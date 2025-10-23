@@ -190,7 +190,7 @@ button:disabled {
 :root { --cor-fhc: #eff31a; --cor-lula: #f61e06; --cor-dilma: #c21ca4; --cor-temer: #176ddf; --cor-bolsonaro: #39dd3f; }
 /* Regra geral de Hover: aplica a animação WIGGLE */
 .retrato-presidente:hover {
-    animation: wiggle 0.4s ease-in-out infinite;
+    animation: wiggle 0.8s ease-in-out infinite;
     transform: scale(1.1); /* Define o estado base da escala */
     z-index: 10; /* Garante que o card fique por cima dos outros */
 }
@@ -373,20 +373,20 @@ button:disabled {
 /* Animação 1: O "Wiggle"  */
 @keyframes wiggle {
     0%, 100% {
-        /* Começa e termina na posição normal (escalado) */
-        transform: scale(1.1) translateX(0);
+        /* Começa e termina na posição normal, reto */
+        transform: scale(1.1) translateX(0) rotate(0deg);
     }
     25% {
-        /* Mexe 4 pixels pra esquerda */
-        transform: scale(1.1) translateX(-4px);
+        /* Mexe 4 pixels pra esquerda E gira 5° pra esquerda */
+        transform: scale(1.1) translateX(-4px) rotate(-5deg);
     }
     50% {
-        /* Mexe 4 pixels pra direita */
-        transform: scale(1.1) translateX(4px);
+        /* Mexe 4 pixels pra direita E gira 5° pra direita */
+        transform: scale(1.1) translateX(4px) rotate(5deg);
     }
     75% {
-        /* Mexe 4 pixels pra esquerda de novo */
-        transform: scale(1.1) translateX(-4px);
+        /* Volta a mexer e girar pra esquerda */
+        transform: scale(1.1) translateX(-4px) rotate(-5deg);
     }
 }
 
@@ -408,4 +408,5 @@ button:disabled {
 #analise-final h2 {
     margin-top: 60px; 
 }
+
 
