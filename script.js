@@ -5,7 +5,7 @@ const telaSelecao = document.getElementById('selecao');
 const telaResultados = document.getElementById('resultados');
 const telaEmbate = document.getElementById('tela-embate');
 const btnLutar = document.getElementById('btnLutar');
-const API_URL = 'https://embate-dos-governos.onrender.com';
+const API_URL = 'https://api-tcc-governos.onrender.com';
 
 
 let playerA = null;
@@ -314,3 +314,4 @@ window.onclick = function(event) {
         fecharFicha();
     }
 }
+
