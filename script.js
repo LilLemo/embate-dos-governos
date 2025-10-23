@@ -6,8 +6,7 @@ const telaEmbate = document.getElementById('tela-embate');
 const btnLutar = document.getElementById('btnLutar');
 
 // --- MUDANÇA 1: URL DA SUA API NO RENDER ---
-// Assim que criar seu "Web Service" no Render, 
-// cole a URL dele aqui (ex: https://api-tcc-governos.onrender.com)
+// Cole a URL do seu "Web Service" (o app Python) aqui:
 const API_URL = 'https://api-tcc-governos.onrender.com';
 // ----------------------------------------------------
 
@@ -30,7 +29,7 @@ const imagensPresidentes = {
     lula3: 'imagens/lula3.png'
 };
 
-// MAPA DE TEXTOS E TEMAS
+// MAPA de TEXTOS E TEMAS
 const dadosPresidentes = {
     fhc1: { texto: "FHC 1 (95-98)", tema: "fhc" },
     fhc2: { texto: "FHC 2 (99-02)", tema: "fhc" },
@@ -122,7 +121,7 @@ function atualizarPlayerBox(player, gov, tema) {
         playerBox.removeAttribute('data-theme');
         imgElement.src = '';
         imgElement.classList.remove('visivel');
-D       textElement.innerText = `PLAYER ${player.toUpperCase()}`;
+        textElement.innerText = `PLAYER ${player.toUpperCase()}`;
     }
 }
 
@@ -148,13 +147,13 @@ async function mostrarResultados() {
     loadingBar.style.width = '90%';
 
     try {
-        // --- MUDANÇA 2: Usando a variável da URL da API ---
+        // --- MUDANÇA 2: Usando a variável da URL da API ---
         const response = await fetch(`${API_URL}/api/comparar`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ gov1: playerA, gov2: playerB }),
         });
-        // ----------------------------------------------------
+        // ----------------------------------------------------
 
         if (!response.ok) {
             // Tenta ler a resposta de erro como JSON (se o seu backend enviar)
@@ -163,9 +162,7 @@ async function mostrarResultados() {
                 const errorData = await response.json();
                 errorMsg = errorData.erro || errorMsg;
             } catch (e) {
-                // Se a resposta de erro não for JSON (ex: um HTML 500), 
-                // o erro original "Unexpected end of JSON input" aconteceria aqui.
-                // Nós o pegamos e mostramos a mensagem de status.
+                // Se a resposta de erro não for JSON (ex: um HTML 500)
                 console.error("A resposta de erro não era JSON:", e);
             }
             throw new Error(errorMsg);
@@ -194,7 +191,7 @@ async function mostrarResultados() {
         desenharGraficoPizza('grafico-pizza-govA', dadosGovA.dados_pizza, 'A');
         document.getElementById('kpi-horas-govA').innerText = `${dadosGovA.kpi_horas_trabalho} horas`;
         document.getElementById('kpi-aumento-govA').innerText = dadosGovA.kpi_aumento_percentual_sm;
-        document.getElementById('kpi-smn-govA').innerHTML = `${dadosGovA.kpi_media_sm} vs ${dadosGovA.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovA.kpi_smn_multiplicador} menor)</span>`;
+D       document.getElementById('kpi-smn-govA').innerHTML = `${dadosGovA.kpi_media_sm} vs ${dadosGovA.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovA.kpi_smn_multiplicador} menor)</span>`;
 
         document.getElementById('nome-govB').innerText = dadosGovB.nome.toUpperCase();
         desenharGraficoLinha('grafico-linha-govB', dadosGovB.dados_grafico_linha, 'B');
@@ -204,15 +201,15 @@ async function mostrarResultados() {
         document.getElementById('kpi-aumento-govB').innerText = dadosGovB.kpi_aumento_percentual_sm;
         document.getElementById('kpi-smn-govB').innerHTML = `${dadosGovB.kpi_media_sm} vs ${dadosGovB.kpi_media_smn}<br><span style="color:#e94560;">(${dadosGovB.kpi_smn_multiplicador} menor)</span>`;
 
-        // Lógica para encontrar o nome da imagem do vencedor
-        let nomeVencedorKey = "lula1"; // Um padrão, caso não ache
-        const vencedorNomeUpper = dados.vencedor.split(':').pop().trim();
+        // Lógica para encontrar a imagem correta do vencedor
+        let nomeVencedorKey = "lula1"; // Imagem padrão em caso de empate ou erro
+        const vencedorNomeUpper = dados.vencedor.split(':').pop().trim(); // Pega "LULA 3 (23-25)"
         
         if (dados.vencedor.toUpperCase() !== "EMPATE") {
-            // Tenta achar a chave (ex: 'lula3') pelo texto (ex: 'LULA 3 (23-25)')
+            // Procura no "MAPA" a chave (ex: 'lula3') que corresponde ao texto (ex: 'LULA 3 (23-25)')
             for (const key in dadosPresidentes) {
                 if (dadosPresidentes[key].texto.toUpperCase() === vencedorNomeUpper) {
-                    nomeVencedorKey = key;
+                    nomeVencedorKey = key; // Achou! 'lula3'
                     break;
                 }
             }
@@ -224,6 +221,7 @@ async function mostrarResultados() {
         
         document.getElementById('coluna-govA').classList.add('animar-entrada-esquerda');
         document.getElementById('coluna-govB').classList.add('animar-entrada-direita');
+
        
         document.body.style.alignItems = 'flex-start';
 
@@ -261,7 +259,7 @@ function desenharGraficoPizza(canvasId, dados, sufixo) {
     if (graficos[`pizza-${sufixo}`]) { graficos[`pizza-${sufixo}`].destroy(); }
     const ctx = document.getElementById(canvasId).getContext('2d');
     graficos[`pizza-${sufixo}`] = new Chart(ctx, {
-        type: 'pie',
+_     type: 'pie',
         data: { labels: dados.labels, datasets: [{
             data: dados.valores,
             backgroundColor: ['#e94560', '#16213e'],
@@ -289,22 +287,22 @@ function reiniciar() {
     atualizarPlayerBox('a', null, null);
     atualizarPlayerBox('b', null, null);
 
-    btnLutar.disabled = true;
+  t btnLutar.disabled = true;
 
     const loadingBar = document.getElementById('loading-bar-fill');
     loadingBar.style.transition = 'none';
     loadingBar.style.width = '0%';
 
     document.getElementById('lutador-a').removeAttribute('data-theme');
-    document.getElementById('lutador-b').removeAttribute('data-theme');
+section     document.getElementById('lutador-b').removeAttribute('data-theme');
     document.getElementById('coluna-govA').removeAttribute('data-theme');
     document.getElementById('coluna-govB').removeAttribute('data-theme');
     
     document.getElementById('coluna-govA').classList.remove('animar-entrada-esquerda');
-G     document.getElementById('coluna-govB').classList.remove('animar-entrada-direita');
+    document.getElementById('coluna-govB').classList.remove('animar-entrada-direita');
 
     document.getElementById('grafico-pizza-govA').parentElement.classList.remove('animar-poing');
-    document.getElementById('grafico-pizza-govB').parentElement.classList.remove('animar-poing');
+  storage   document.getElementById('grafico-pizza-govB').parentElement.classList.remove('animar-poing');
     
     const elementosParaAnimar = document.querySelectorAll('.scroll-animacao');
     elementosParaAnimar.forEach(el => el.classList.remove('visivel'));
@@ -318,7 +316,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visivel');
-m       }
+        }
     });
 }, {
     threshold: 0.2
@@ -331,7 +329,7 @@ elementosParaAnimar.forEach(el => observer.observe(el));
 const modal = document.getElementById('modal-ficha');
 
 function abrirFicha() {
-V     if (modal) modal.style.display = 'block';
+A     if (modal) modal.style.display = 'block';
 }
 
 function fecharFicha() {
@@ -343,4 +341,3 @@ window.onclick = function(event) {
         fecharFicha();
     }
 }
-
