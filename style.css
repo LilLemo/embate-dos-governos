@@ -354,7 +354,7 @@ button:disabled {
 #resultados .card-analise {
     flex: 1; 
     max-width: 600px; 
-    background-color: #ffffff;
+    background-color: #0f3460;
     border: 2px solid #e94560; 
     border-radius: 10px;
     padding: 20px;
@@ -412,12 +412,13 @@ button:disabled {
     font-family: Arial, sans-serif; /* Usar uma fonte mais legível que a 'Press Start' */
     font-size: 16px;
     font-style: italic;
-    color: #f1c40f; /* Uma cor de destaque, como a do botão de ficha técnica */
+    color: #ffffff; /* Uma cor de destaque, como a do botão de ficha técnica */
     margin-top: 25px; /* Espaço para separar do gráfico de linha */
     margin-bottom: 10px; /* Espaço antes de mostrar a pizza */
     text-align: center;
     line-height: 1.4;
 }
+
 
 
 
