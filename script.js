@@ -8,7 +8,7 @@ const btnLutar = document.getElementById('btnLutar');
 // --- MUDANÇA 1: URL DA SUA API NO RENDER ---
 // Assim que criar seu "Web Service" no Render, 
 // cole a URL dele aqui (ex: https://api-tcc-governos.onrender.com)
-const API_URL = 'https://COLE-A-URL-DO-SEU-WEB-SERVICE-AQUI.onrender.com';
+const API_URL = 'https://api-tcc-governos.onrender.com';
 // ----------------------------------------------------
 
 let playerA = null;
@@ -343,3 +343,4 @@ window.onclick = function(event) {
         fecharFicha();
     }
 }
+
