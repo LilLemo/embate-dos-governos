@@ -178,24 +178,24 @@ prompt = f"""
    """
     
     # --- BLOCO DE LÓGICA: Tenta o Gemini, se falhar, tenta o DeepSeek ---
-    texto_analise_ia = None
-    try:
+texto_analise_ia = None
+try:
         # Tenta chamar a API principal (Gemini)
         print("Tentando a chamada principal (Gemini)...")
         model = genai.GenerativeModel('models/gemini-pro-latest')
         response = model.generate_content(prompt)
         texto_analise_ia = response.text
-    except exceptions.ResourceExhausted as e:
+except exceptions.ResourceExhausted as e:
         # Se a cota do Gemini estourar, chama a função do estepe (DeepSeek)
         print(f"AVISO: Cota do Gemini excedida. {e}")
         texto_analise_ia = chamar_deepseek(prompt)
-    except Exception as e:
+except Exception as e:
         # Se qualquer outro erro acontecer com o Gemini, também tenta o estepe
         print(f"AVISO: Erro inesperado na API do Gemini, tentando o estepe. Erro: {e}")
         texto_analise_ia = chamar_deepseek(prompt)
 
     # Se mesmo o estepe falhar, gera um texto padrão para o site não quebrar
-    if texto_analise_ia is None:
+if texto_analise_ia is None:
         print("AVISO: Ambas as APIs falharam. Gerando texto padrão.")
         texto_analise_ia = (f"Olá, sou o Dadinho! Parece que meus circuitos de IA estão sobrecarregados hoje.\n\n"
                             f"Mas a análise numérica não para! O vencedor do round de 'Aumento Salarial' foi {vencedor_aumento_sm.upper()}.\n"
@@ -205,13 +205,13 @@ prompt = f"""
     # --- FIM DO BLOCO DE LÓGICA ---
 
     # Empacota o resultado final para o site
-    resultado_final = { 
+resultado_final = { 
         "governo1": dados_gov1, 
         "governo2": dados_gov2, 
         "analise_dadinho": texto_analise_ia,
         "vencedor": vencedor_geral_label 
     }
-    return jsonify(resultado_final)
+return jsonify(resultado_final)
 
 # Rota para servir o nosso site 
 @app.route('/')
@@ -225,10 +225,6 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
-
-
-
-
 
 
 
