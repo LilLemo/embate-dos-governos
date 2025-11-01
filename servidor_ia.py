@@ -57,6 +57,9 @@ def calcular_metricas(periodo_gov):
     
     smn_multiplicador = media_smn / media_salario if media_salario > 0 and pd.notna(media_smn) else 0
     
+    percentual_comprometimento = (media_cesta / media_salario) * 100 if media_salario > 0 else 0
+    smn_multiplicador = media_smn / media_salario if media_salario > 0 and pd.notna(media_smn) else 0
+    
     salario_inicial = df['Salario'].iloc[0]
     salario_final = df['Salario'].iloc[-1]
     aumento_percentual_sm = ((salario_final - salario_inicial) / salario_inicial) * 100 if salario_inicial > 0 else 0
@@ -65,8 +68,7 @@ def calcular_metricas(periodo_gov):
     
     df['data_str'] = df['data'].dt.strftime('%Y-%m')
     dados_grafico_linha = {'labels': df['data_str'].tolist(),'salario': df['Salario'].tolist(),'cesta': df['valor_nominal'].tolist()}
-    dados_pizza = { 'labels': ['Cesta Básica', 'Sobra'], 'valores': [(media_cesta / media_salario) * 100 if media_salario > 0 else 0, 100 - ((media_cesta / media_salario) * 100 if media_salario > 0 else 0)] }
-
+    dados_pizza = { 'labels': ['Cesta Básica', 'Sobra'], 'valores': [percentual_comprometimento, 100 - percentual_comprometimento] }
     return {
         'nome': periodo_gov,
         'dados_grafico_linha': dados_grafico_linha,
@@ -76,6 +78,7 @@ def calcular_metricas(periodo_gov):
         'kpi_media_smn': f"R$ {media_smn:.2f}" if pd.notna(media_smn) else "N/A",
         'kpi_smn_multiplicador': f"{smn_multiplicador:.2f}x" if smn_multiplicador > 0 else "N/A",
         'kpi_aumento_percentual_sm': f"{aumento_percentual_sm:.2f}%"
+        'kpi_percentual_comprometimento': f"{percentual_comprometimento:.2f}%"
     }
 
 # ---  FUNÇÃO: O "ESTEPE" ---
@@ -116,49 +119,58 @@ def comparar_governos():
     horas_gov2 = dados_gov2['kpi_horas_trabalho']
     multiplicador_gov1 = float(dados_gov1['kpi_smn_multiplicador'][:-1]) if dados_gov1['kpi_smn_multiplicador'] != "N/A" else float('inf')
     multiplicador_gov2 = float(dados_gov2['kpi_smn_multiplicador'][:-1]) if dados_gov2['kpi_smn_multiplicador'] != "N/A" else float('inf')
+    comprometimento_gov1 = float(dados_gov1['kpi_percentual_comprometimento'][:-1])
+    comprometimento_gov2 = float(dados_gov2['kpi_percentual_comprometimento'][:-1])
     vencedor_aumento_sm = dados_gov1['nome'] if aumento_gov1 > aumento_gov2 else dados_gov2['nome']
     vencedor_horas = dados_gov1['nome'] if horas_gov1 < horas_gov2 else dados_gov2['nome']
     vencedor_smn = dados_gov1['nome'] if multiplicador_gov1 < multiplicador_gov2 else dados_gov2['nome']
+    vencedor_comprometimento = dados_gov1['nome'] if comprometimento_gov1 < comprometimento_gov2 else dados_gov2['nome']
     pontos = {dados_gov1['nome']: 0, dados_gov2['nome']: 0}
     pontos[vencedor_aumento_sm] += 1
     pontos[vencedor_horas] += 1
     pontos[vencedor_smn] += 1
+    pontos[vencedor_comprometimento] += 2
     placar_final = f"Placar Final: {dados_gov1['nome'].upper()} {pontos[dados_gov1['nome']]} x {pontos[dados_gov2['nome']]} {dados_gov2['nome'].upper()}"
-    vencedor_geral_label = "EMPATE"
+    
     if pontos[dados_gov1['nome']] > pontos[dados_gov2['nome']]:
         vencedor_geral_label = f"VENCEDOR: {dados_gov1['nome'].upper()}"
     elif pontos[dados_gov2['nome']] > pontos[dados_gov1['nome']]:
         vencedor_geral_label = f"VENCEDOR: {dados_gov2['nome'].upper()}"
 
 
-    prompt = f"""
-    Aja como 'Dadinho', um carismático locutor de luta e analista de dados. Sua tarefa é narrar um "embate econômico" em rounds, com **parágrafos muito curtos e diretos (máximo 2 frases por parágrafo)**.
+prompt = f"""
+   Aja como 'Dadinho', um carismático locutor de um jogo de luta dos anos 80 e analista de dados. Sua tarefa é narrar um "embate econômico" em rounds, com parágrafos muito curtos e diretos (máximo 2 frases por parágrafo).
 
-    **DADOS APURADOS PARA SUA NARRAÇÃO:**
-    - GOVERNO A: {dados_gov1['nome'].upper()}
-      - Aumento do Salário: {dados_gov1['kpi_aumento_percentual_sm']}
-      - Horas de Trabalho p/ Cesta: {dados_gov1['kpi_horas_trabalho']} horas
-      - SM vs. Necessário: {dados_gov1['kpi_smn_multiplicador']}
+   **DADOS APURADOS PARA SUA NARRAÇÃO:**
+   - GOVERNO A: {dados_gov1['nome'].upper()}
+     - Comprometimento da Renda: {dados_gov1['kpi_percentual_comprometimento']} 
+     - Aumento do Salário: {dados_gov1['kpi_aumento_percentual_sm']}
+     - Horas de Trabalho p/ Cesta: {dados_gov1['kpi_horas_trabalho']} horas
+     - SM vs. Necessário: {dados_gov1['kpi_smn_multiplicador']}
 
-    - GOVERNO B: {dados_gov2['nome'].upper()}
-      - Aumento do Salário: {dados_gov2['kpi_aumento_percentual_sm']}
-      - Horas de Trabalho p/ Cesta: {dados_gov2['kpi_horas_trabalho']} horas
-      - SM vs. Necessário: {dados_gov2['kpi_smn_multiplicador']}
+   - GOVERNO B: {dados_gov2['nome'].upper()}
+     - Comprometimento da Renda: {dados_gov2['kpi_percentual_comprometimento']} 
+     - Aumento do Salário: {dados_gov2['kpi_aumento_percentual_sm']}
+     - Horas de Trabalho p/ Cesta: {dados_gov2['kpi_horas_trabalho']} horas
+     - SM vs. Necessário: {dados_gov2['kpi_smn_multiplicador']}
 
-    **RESULTADO DO JULGAMENTO (JÁ CALCULADO):**
-    - Vencedor do Round 1 ('Aumento de Salário'): {vencedor_aumento_sm.upper()}
-    - Vencedor do Round 2 ('Horas de Trabalho'): {vencedor_horas.upper()}
-    - Vencedor do Round 3 ('Distância do Salário Necessário'): {vencedor_smn.upper()}
-    - Placar Final: {placar_final}
-    - Vencedor Geral: {vencedor_geral_label}
+   **RESULTADO DO JULGAMENTO (JÁ CALCULADO):**
+   
+   - Vencedor do Round 1 ('Aumento de Salário'): {vencedor_aumento_sm.upper()}
+   - Vencedor do Round 2 ('Horas de Trabalho'): {vencedor_horas.upper()}
+   - Vencedor do Round 3 ('Distância do Salário Necessário'): {vencedor_smn.upper()}
+   - Vencedor do Round 4 ('Comprometimento da Renda') - (Peso 2): {vencedor_comprometimento.upper()}
+   - Placar Final: {placar_final}
+   - Vencedor Geral: {vencedor_geral_label}
 
-    **INSTRUÇÕES PARA SUA NARRAÇÃO:**
-    1.  **Saudação:** Comece com uma única frase de saudação empolgada.
-    2.  **Round 1 - Aumento Salarial:** Em um parágrafo muito curto (máximo 2 frases), anuncie o vencedor do Round 1, citando os percentuais de aumento.
-    3.  **Round 2 - Horas de Trabalho:** Em outro parágrafo curto (máximo 2 frases), anuncie o vencedor do Round 2, comparando as horas de trabalho necessárias.
-    4.  **Round 3 - Distância do Ideal:** Em um terceiro parágrafo curto (máximo 2 frases), anuncie o vencedor do Round 3, comparando o multiplicador 'x'.
-    5.  **Veredito Final:** Em um parágrafo final, apresente o placar ({placar_final}) e o vencedor ({vencedor_geral_label}). Se o placar for 2x1, mencione que a "luta foi acirrada". Se um dos governos teve mandato curto (Dilma 2, Temer, Lula 3), comente isso brevemente.
-    """ 
+   **INSTRUÇÕES PARA SUA NARRAÇÃO:**
+   1.  Saudação: Comece com uma única frase de saudação empolgada.   
+   2.  **Round 1 - Aumento Salarial:** Em outro parágrafo curto, anuncie o vencedor do Round 2 (Aumento).
+   3.  **Round 2 - Horas de Trabalho:** Em outro parágrafo curto, anuncie o vencedor do Round 3 (Horas).
+   4.  **Round 3 - Distância do Ideal:** Em um  parágrafo curto, anuncie o vencedor do Round 4 (Distância).
+   5.  **Round 4 (Peso 2) - Comprometimento da Renda:** Em um parágrafo curto (máximo 2 frases), anuncie o vencedor do Round, citando qual governo exigia a *menor* porcentagem do salário. (Destaque que vale 2 pontos e que esse é um ataque especial muito forte!)
+   6.  **Veredito Final:** Em um parágrafo final, apresente o placar ({placar_final}) e o vencedor ({vencedor_geral_label}). cite brevemente um contexto histórico que teria impacto nesse resultado.
+   """
     
     # --- BLOCO DE LÓGICA: Tenta o Gemini, se falhar, tenta o DeepSeek ---
     texto_analise_ia = None
@@ -208,6 +220,7 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
 
 
 
