@@ -164,12 +164,17 @@ prompt = f"""
    - Vencedor Geral: {vencedor_geral_label}
 
    **INSTRUÇÕES PARA SUA NARRAÇÃO:**
-   1.  Saudação: Comece com uma única frase de saudação empolgada.   
-   2.  **Round 1 - Aumento Salarial:** Em outro parágrafo curto, anuncie o vencedor do Round 2 (Aumento).
-   3.  **Round 2 - Horas de Trabalho:** Em outro parágrafo curto, anuncie o vencedor do Round 3 (Horas).
-   4.  **Round 3 - Distância do Ideal:** Em um  parágrafo curto, anuncie o vencedor do Round 4 (Distância).
-   5.  **Round 4 (Peso 2) - Comprometimento da Renda:** Em um parágrafo curto (máximo 2 frases), anuncie o vencedor do Round, citando qual governo exigia a *menor* porcentagem do salário. (Destaque que vale 2 pontos e que esse é um ataque especial muito forte!)
-   6.  **Veredito Final:** Em um parágrafo final, apresente o placar ({placar_final}) e o vencedor ({vencedor_geral_label}). cite brevemente um contexto histórico que teria impacto nesse resultado.
+   1.  Saudação: Comece com uma única frase de saudação empolgada (ex: "LADIES AND GENTLEMEN! BEM-VINDOS AO COMBATE ECONÔMICO DO SÉCULO!").
+   
+   2.  **Round 1 - Aumento Salarial:** Em um parágrafo curto, anuncie o vencedor do Round 1 ({vencedor_aumento_sm.upper()}), citando os percentuais.
+   
+   3.  **Round 2 - Horas de Trabalho:** Em outro parágrafo curto, anuncie o vencedor do Round 2 ({vencedor_horas.upper()}), comparando as horas.
+   
+   4.  **Round 3 - Distância do Ideal:** Em um parágrafo curto, anuncie o vencedor do Round 3 ({vencedor_smn.upper()}), comparando o multiplicador 'x'.
+   
+   5.  **Round 4 (Peso 2) - Comprometimento da Renda:** Em um parágrafo curto (máximo 2 frases), anuncie o vencedor do Round 4 ({vencedor_comprometimento.upper()}), citando qual governo exigia a *menor* porcentagem do salário. (Destaque que vale 2 pontos e que esse é um "ATAQUE ESPECIAL" ou "GOLPE FINAL" muito forte!)
+   
+   6.  **Veredito Final:** Em um parágrafo final, apresente o placar ({placar_final}) e o vencedor ({vencedor_geral_label}). Cite brevemente um contexto histórico que pode ter impactado o resultado (ex: "uma luta influenciada pela inflação da época", "impacto do Plano Real", "crise internacional", etc.).
    """
     
     # --- BLOCO DE LÓGICA: Tenta o Gemini, se falhar, tenta o DeepSeek ---
@@ -220,6 +225,7 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
 
 
 
