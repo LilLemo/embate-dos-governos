@@ -77,7 +77,7 @@ def calcular_metricas(periodo_gov):
         'kpi_media_sm': f"R$ {media_salario:.2f}",
         'kpi_media_smn': f"R$ {media_smn:.2f}" if pd.notna(media_smn) else "N/A",
         'kpi_smn_multiplicador': f"{smn_multiplicador:.2f}x" if smn_multiplicador > 0 else "N/A",
-        'kpi_aumento_percentual_sm': f"{aumento_percentual_sm:.2f}%"
+        'kpi_aumento_percentual_sm': f"{aumento_percentual_sm:.2f}%",
         'kpi_percentual_comprometimento': f"{percentual_comprometimento:.2f}%"
     }
 
@@ -220,6 +220,7 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
     # --- Fim da MUDANÇA 4 ---
+
 
 
 
