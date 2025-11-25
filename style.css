@@ -81,16 +81,13 @@ button:disabled {
     width: 100%;
 }
 
-
-/* Estilos da Tela de Boas-Vindas */
 #placeholder-dadinho { width: 150px; height: 150px; background-color: #533483; border: 3px dashed #e94560; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; }
 .balao-fala { background-color: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 20px; max-width: 600px; position: relative; }
 
-/* Estilos da Tela de Seleção */
 #selecao h2 { font-size: 24px; }
 .arena-selecao { display: flex; justify-content: space-around; align-items: center; margin: 15px 0; }
 
-/* --- ATUALIZAÇÃO: Estilo do Player Box --- */
+
 .player-box {
     width: 250px;
     height: 300px;
@@ -126,8 +123,6 @@ button:disabled {
     z-index: 2;
     text-shadow: 2px 2px 4px #000;
 }
-/* --- FIM DA ATUALIZAÇÃO --- */
-
 .grid-personagens {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -167,7 +162,6 @@ button:disabled {
 .retrato-presidente.selecionado { 
     border-style: solid;
 }
-
 /* Estilos da Tela de Resultados */
 .arena-resultados { min-height: 90vh; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
 .coluna-resultado {  width: 100%; max-width: 500px; padding: 15px; border-radius: 8px; border: 2px solid #0f3460; transition: all 0.5s ease; opacity: 0; }
@@ -188,26 +182,21 @@ button:disabled {
 .loading-container { width: 70%; height: 30px; background-color: #1a1a2e; border: 3px solid #fff; border-radius: 5px; overflow: hidden; }
 .loading-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #e94560, #f0ff78); border-radius: 2px; transition: width 0.5s ease-in-out; }
 :root { --cor-fhc: #eff31a; --cor-lula: #f61e06; --cor-dilma: #c21ca4; --cor-temer: #176ddf; --cor-bolsonaro: #39dd3f; }
-/* Regra geral de Hover: aplica a animação WIGGLE */
 .retrato-presidente:hover {
     animation: wiggle 1s ease-in-out infinite;
-    transform: scale(1.1); /* Define o estado base da escala */
-    z-index: 10; /* Garante que o card fique por cima dos outros */
+    transform: scale(1.1); 
+    z-index: 10; 
 }
-
-/* Regras específicas de Hover: aplicam as CORES de cada tema */
 .retrato-presidente[data-theme="fhc"]:hover { border-color: var(--cor-fhc); box-shadow: 0 0 15px var(--cor-fhc); }
 .retrato-presidente[data-theme="lula"]:hover { border-color: var(--cor-lula); box-shadow: 0 0 15px var(--cor-lula); }
 .retrato-presidente[data-theme="dilma"]:hover { border-color: var(--cor-dilma); box-shadow: 0 0 15px var(--cor-dilma); }
 .retrato-presidente[data-theme="temer"]:hover { border-color: var(--cor-temer); box-shadow: 0 0 15px var(--cor-temer); }
 .retrato-presidente[data-theme="bolsonaro"]:hover { border-color: var(--cor-bolsonaro); box-shadow: 0 0 15px var(--cor-bolsonaro); }
-/* --- 2. ESTADO SELECIONADO (POP) --- */
-/* Regra geral de Seleção: aplica a animação POP */
 .retrato-presidente.selecionado {
-    border-style: solid; /* Garante que a borda sólida (do .css original) apareça */
+    border-style: solid; 
     animation: pop-select 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    transform: scale(1.1); /* Estado final da animação */
-    z-index: 5; /* Fica acima dos normais, mas abaixo do hover */
+    transform: scale(1.1); 
+    z-index: 5; 
 }
 .retrato-presidente[data-theme="fhc"].selecionado { border-color: var(--cor-fhc); box-shadow: 0 0 15px var(--cor-fhc); }
 .retrato-presidente[data-theme="lula"].selecionado { border-color: var(--cor-lula); box-shadow: 0 0 15px var(--cor-lula); }
@@ -237,25 +226,17 @@ button:disabled {
 #vencedor-imagem { width: 400px; height: 400px; object-fit: cover; border-radius: 50%; border: 8px solid #50fa7b; box-shadow: 0 0 35px #50fa7b; }
 #botao-container { margin-top: 60px; padding-top: 40px; border-top: 3px solid #0f3460; }
 
-/* ======================================================= */
-/* ESTILOS DO BOTÃO SECUNDÁRIO E DO MODAL                  */
-/* ======================================================= */
-
-
 .btn-secundario {
     background-color: #f1c40f; 
     color: #16213e; 
     border-color: #16213e;
     margin-top: 15px;
 }
-
 .btn-secundario:hover {
     background-color: #16213e;
     color: #f1c40f;
     border-color: #f1c40f;
 }
-
-/* O fundo escuro e semi-transparente do modal */
 .modal {
     display: none; 
     position: fixed; 
@@ -269,8 +250,6 @@ button:disabled {
     -webkit-backdrop-filter: blur(5px); 
     backdrop-filter: blur(5px); 
 }
-
-/* A caixa de conteúdo do modal */
 .modal-content {
     background-color: #16213e;
     margin: 8% auto; 
@@ -285,7 +264,6 @@ button:disabled {
     box-shadow: 0 0 30px rgba(227, 20, 102, 0.7);
 }
 
-/* O botão de fechar */
 .close-button {
     color: #aaa;
     position: absolute;
@@ -303,7 +281,6 @@ button:disabled {
     text-decoration: none;
 }
 
-/* Estilos para o conteúdo dentro do modal */
 .modal-secao {
     margin-bottom: 25px;
     padding-bottom: 25px;
@@ -370,38 +347,30 @@ button:disabled {
     color: #ffffff;
 }
 
-/* Animação 1: O "Wiggle"  */
+
 @keyframes wiggle {
     0%, 100% {
-        /* Começa e termina na posição normal, reto */
         transform: scale(1.1) translateX(0) rotate(0deg);
     }
     25% {
-        /* Mexe 4 pixels pra esquerda E gira 5° pra esquerda */
         transform: scale(1.1) translateX(-4px) rotate(-5deg);
     }
     50% {
-        /* Mexe 4 pixels pra direita E gira 5° pra direita */
         transform: scale(1.1) translateX(4px) rotate(5deg);
     }
     75% {
-        /* Volta a mexer e girar pra esquerda */
         transform: scale(1.1) translateX(-4px) rotate(-5deg);
     }
 }
 
-/* Animação 2: O "POP" ao selecionar */
 @keyframes pop-select {
     0% {
-        /* Começa do tamanho normal (antes do clique) */
         transform: scale(1.0);
     }
     50% {
-        /* O "POP" - Fica 25% maior e a luz (sombra) expande */
         transform: scale(1.25);
     }
     100% {
-        /* Termina no estado "selecionado" (um pouco maior) */
         transform: scale(1.1);
     }
 }
@@ -409,15 +378,16 @@ button:disabled {
     margin-top: 80px; 
 }
 .titulo-grafico-pizza {
-    font-family: Arial, sans-serif; /* Usar uma fonte mais legível que a 'Press Start' */
+    font-family: Arial, sans-serif; 
     font-size: 16px;
     font-style: italic;
-    color: #ffffff; /* Uma cor de destaque, como a do botão de ficha técnica */
-    margin-top: 25px; /* Espaço para separar do gráfico de linha */
-    margin-bottom: 10px; /* Espaço antes de mostrar a pizza */
+    color: #ffffff; 
+    margin-top: 25px; 
+    margin-bottom: 10px; 
     text-align: center;
     line-height: 1.4;
 }
+
 
 
 
