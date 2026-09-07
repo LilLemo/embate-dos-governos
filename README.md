@@ -6,7 +6,7 @@
 
 Uma ferramenta interativa para comparar períodos presidenciais brasileiros a partir de dados econômicos reais, com recortes por capital, inflação, evolução da cesta básica e ganho real do salário mínimo.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/LilLemo/embate-dos-governos-final)
+
 
 </div>
 
@@ -139,17 +139,6 @@ Para validar o motor de cálculo:
 ```bash
 node --test scripts/engine.test.mjs
 ```
-
-## Publicar na Vercel
-
-O repositório já inclui o `vercel.json` apontando para a pasta `dist`.
-
-1. Importe este repositório na Vercel.
-2. Selecione **Other** como framework.
-3. Deixe o comando de build vazio.
-4. Confirme a publicação.
-
-Também é possível usar o botão **Deploy with Vercel** no início deste README.
 
 ## Tecnologias
 
