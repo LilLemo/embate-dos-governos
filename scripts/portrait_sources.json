@@ -1,0 +1,44 @@
+{
+  "fhc": {
+    "file": "dist/portraits/fhc.webp",
+    "author": "Agência Brasil",
+    "license": "CC BY 3.0 BR",
+    "source": "https://commons.wikimedia.org/wiki/File:Fernando_Henrique_Cardoso_(1999)_(cropped).jpg"
+  },
+  "lula1": {
+    "file": "dist/portraits/lula1.webp",
+    "author": "Lula Oficial",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Foto_oficial_do_primeiro_mandato_do_presidente_Luiz_In%C3%A1cio_Lula_da_Silva_-_53155275756.jpg"
+  },
+  "lula2": {
+    "file": "dist/portraits/lula2.webp",
+    "author": "Ricardo Stuckert / Presidência da República",
+    "license": "CC BY 3.0 BR",
+    "source": "https://commons.wikimedia.org/wiki/File:Lula_-_foto_oficial_-_05_jan_2007_(cropped2).jpg"
+  },
+  "dilma": {
+    "file": "dist/portraits/dilma.webp",
+    "author": "Roberto Stuckert Filho / Presidência da República",
+    "license": "Attribution",
+    "source": "https://commons.wikimedia.org/wiki/File:Dilma_Rousseff_-_foto_oficial_2011-01-09_(cropped2).jpg"
+  },
+  "temer": {
+    "file": "dist/portraits/temer.webp",
+    "author": "Beto Barata / PR",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Michel_Temer_(foto_oficial).jpg"
+  },
+  "bolsonaro": {
+    "file": "dist/portraits/bolsonaro.webp",
+    "author": "Isac Nóbrega / PR",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jair_Bolsonaro_2019_Portrait_(3x4_cropped).jpg"
+  },
+  "lula3": {
+    "file": "dist/portraits/lula3.webp",
+    "author": "Palácio do Planalto",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_(2023%E2%80%932027).jpg"
+  }
+}
