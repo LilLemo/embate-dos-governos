@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🕹️ Embate dos Governos
+#  Embate dos Governos
 
 ### Cesta básica, salário mínimo e poder de compra em uma arena de comparação
 
